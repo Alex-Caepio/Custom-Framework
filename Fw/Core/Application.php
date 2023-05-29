@@ -2,10 +2,9 @@
 
 namespace Fw\Core;
 
-
 class Application
 {
-    use Container\Singleton;
+    use Service\Singleton;
 
     private object $page;
     private $template;
@@ -41,7 +40,7 @@ class Application
     private function endBuffer()
     {
         $content = ob_get_contents();
-        $content = str_replace($this->getPage()->replaceAll(), $this->getPage()->replaceAll(), $content);
+        $content = str_replace(array_keys($this->getPage()->replaceAll()), $this->getPage()->replaceAll(), $content);
         ob_clean();
         echo $content;
         ob_end_flush();

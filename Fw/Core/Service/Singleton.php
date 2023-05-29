@@ -1,7 +1,6 @@
 <?php
 
-namespace Fw\Core\Container;
-
+namespace Fw\Core\Service;
 
 trait Singleton
 {

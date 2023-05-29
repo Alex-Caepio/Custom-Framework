@@ -2,95 +2,87 @@
 
 namespace Fw\Core;
 
-
 class Page
 {
-    use Container\Singleton;
+    use Service\Singleton;
 
     private $propertyArray = [];
     private $csslink = [];
     private $jslink = [];
     private $stringArray = [];
 
-    public function getMacros(string $key)
+    private function getMacros($key)
     {
-        return $this->getProperty($key);
+        return ("#FW_REPLACE_{$key}_MAKRO#");
     }
 
-    public function replaceAll(): array
+    public function replaceAll()
     {
-        return array_merge($this->propertyArray, $this->getCssTag(), $this->getJsTag(), $this->getStringTag());
+        return $this->propertyArray + $this->getJsTag() + $this->getCssTag() + $this->getStringTag();
     }
 
-    public function getString(): array
-    {
-        return $this->stringArray;
-    }
-
-    public function addCss(string $src): void
-    {
-        $cssname = md5($src);
-        $this->csslink[$cssname] = $src;
-    }
-
-    public function addJS(string $src): void
+    public function addJs(string $src)
     {
         $jsname = md5($src);
         $this->jslink[$jsname] = $src;
     }
 
-    private function addString(string $key, string $value): void
+    public function addCss(string $link)
     {
-        $this->stringArray[$key] = $value;
+        $cssname = md5($link);
+        $this->csslink[$cssname] = $link;
     }
 
-    public function getProperty(string $key): string
+    public function addString(string $str)
     {
-        return $this->$key;
+        $strname = md5($str);
+        $this->anystring[$strname] = $str;
     }
 
-    public function setProperty(string $key, $value): void
+    public function setProperty(string $key, $value)
     {
-        $this->$key = $value;
+        $this->propertyArray[$this->getMacros("PROPERTY_" . $key)] = $value;
     }
 
-    public function showProperty(string $key): string
+    public function getProperty(string $key)
     {
-        return $this->getProperty($key);
+        return $this->propertyArray[$this->getMacros("PROPERTY_" . $key)];
     }
 
-    public function getCssTag(): array
+    public function showProperty(string $key)
     {
-        $css = $this->csslink;
-        $cssTag = '';
-        foreach ($css as $value) {
-            $cssTag .= '<link rel="stylesheet" href="' . $value . '">';
+        echo($this->getMacros("PROPERTY_" . $key));
+    }
+
+    private function getJsTag()
+    {
+        $resultstring = "";
+        foreach ($this->jslink as $value) {
+            $resultstring .= "<script src=\"$value\"></script>\n";
         }
-        return array($this->getMacros('FW_CSS'), $cssTag);
+        return array($this->getMacros("JS") => $resultstring);
     }
 
-    public function getStringTag(): array
+    private function getCssTag()
     {
-        $string = $this->stringArray;
-        $stringTag = '';
-        foreach ($string as $value) {
-            $stringTag .= $value;
+        $resultstring = "";
+        foreach ($this->csslink as $value) {
+            $resultstring .= "<link href=\"$value\" rel=\"stylesheet\">\n";
         }
-        return array($this->getMacros('FW_STRING'), $stringTag);
+        return array($this->getMacros("CSS") => $resultstring);
     }
 
-    public function getJsTag(): array
+    private function getStringTag()
     {
-        $js = $this->jslink;
-        $jsTag = '';
-        foreach ($js as $value) {
-            $jsTag .= '<script src="' . $value . '"></script>';
+        $resultstring = "";
+        foreach ($this->stringArray as $value) {
+            $resultstring .= $value . "\n";
         }
-        return array($this->getMacros('FW_JS'), $jsTag);
+        return array($this->getMacros("STR") => $resultstring);
     }
 
-    public function showHead(): string
+    public function showHead()
     {
-        return $this->getMacros('FW_CSS') . '<br/>' . $this->getMacros('FW_STRING') . '<br/>' . $this->getMacros('FW_JS');
+        echo($this->getMacros("JS") . "\n" . $this->getMacros("CSS") . "\n" . $this->getMacros("STR") . "\n");
     }
 }
