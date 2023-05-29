@@ -3,4 +3,6 @@
 namespace Fw;
 
 
-$config = [];
+$config = [
+    'templates' => '.default'
+];

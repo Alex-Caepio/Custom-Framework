@@ -2,7 +2,12 @@
 
 namespace Fw;
 
+
+use Fw\Core\Application;
+
 session_start();
+
+define('BITRIX_CORE', true);
 
 spl_autoload_register(function ($class) {
     $class = str_replace('\\', '/', $class);
@@ -11,6 +16,9 @@ spl_autoload_register(function ($class) {
         require_once $file;
     }
 });
+
+$app = Application::getInstance();
+
 
 
 
