@@ -2,23 +2,23 @@
 
 namespace Fw\Core;
 
-
 class Config
 {
-    private static $config;
+    private static $configuration;
 
     public static function init()
     {
-        self::$config = require __DIR__ . '/../config.php';
+        require __DIR__ . '/../config.php';
+        self::$configuration = $config;
     }
 
     public static function get(string $path)
     {
-        if (is_null(self::$config)) {
+        if (is_null(self::$configuration)) {
             self::init();
         }
         $variables = explode('/', $path);
-        $config = self::$config;
+        $config = self::$configuration;
         foreach ($variables as $var) {
             if (isset($config[$var])) {
                 $config = $config[$var];

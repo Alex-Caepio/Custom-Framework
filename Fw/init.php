@@ -4,13 +4,21 @@ namespace Fw;
 
 session_start();
 
+define('BITRIX_CORE', true);
+
+use Fw\Core\Application;
+
 spl_autoload_register(function ($class) {
-    $class = str_replace('\\', '/', $class);
-    $file = __DIR__ . '/' . $class . '.php';
+    $root = $_SERVER['DOCUMENT_ROOT'];
+    $class = str_replace("\\", '/', $class);
+    $file = $root . "/{$class}.php";
     if (file_exists($file)) {
         require_once $file;
     }
 });
+
+$app = Application::getInstance();
+
 
 
 
