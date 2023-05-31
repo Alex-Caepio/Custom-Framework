@@ -1,0 +1,17 @@
+.block-calc-violet {
+    border-radius: 10px;
+    border: solid darkred;
+    color: darkred;
+    padding: 20px;
+
+}
+
+.p-calc-violet {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.h-calc-violet {
+    font-size: 20px;
+    font-weight: 900;
+}

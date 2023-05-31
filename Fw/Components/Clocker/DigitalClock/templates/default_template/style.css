@@ -1,0 +1,14 @@
+.block-clock {
+    border: solid darkred;
+    padding: 20px;
+}
+
+.p-clock {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.h-clock {
+    font-size: 20px;
+    font-weight: 900;
+}
