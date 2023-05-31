@@ -1,5 +1,7 @@
 <?php
-$pageApp = $this->page;
+require_once $_SERVER['DOCUMENT_ROOT'] . "/Fw/core/Page.php";
+
+$pageApp = $this->getPage();
 ?>
 
 <!DOCTYPE html>

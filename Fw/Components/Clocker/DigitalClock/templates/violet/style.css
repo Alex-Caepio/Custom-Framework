@@ -1,0 +1,16 @@
+.block-clock-violet {
+    border: solid darkred;
+    color: darkred;
+    padding: 20px;
+
+}
+
+.p-clock-violet {
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.h-clock-violet {
+    font-size: 20px;
+    font-weight: 900;
+}

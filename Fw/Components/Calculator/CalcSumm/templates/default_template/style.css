@@ -1,0 +1,15 @@
+.block-calc{
+    border: solid;
+    border-radius: 10px;
+    border-color: rgba(0, 0, 0, 0.514); 
+    padding: 20px;   
+}
+
+.p-calc{
+    font-size: 14px;
+    font-weight: 700;
+}
+.h-calc{
+    font-size: 20px;
+    font-weight: 900;
+}
